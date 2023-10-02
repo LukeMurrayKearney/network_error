@@ -50,6 +50,15 @@ pub fn read_rates_mat(file_path: &str) -> Vec<Vec<f64>> {
     rates_mat
 }
 
+pub fn read_egos(file_path: &str) -> Vec<Vec<usize>> {
+    let mat = read_rates_mat(file_path);
+    mat.into_iter()
+        .map(|inner_vec| {
+            inner_vec.into_iter().map(|f| f as usize).collect()
+        })
+        .collect()
+}
+
 fn read_csv_file(file_path: &str) -> Result<Vec<Vec<f64>>, Box<dyn std::error::Error>> {
     let mut file = File::open(file_path)?;
     let mut content = String::new();
