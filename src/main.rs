@@ -5,7 +5,7 @@ use std::{time::Instant, io::repeat};
 
 fn  main() {
 
-    let n: usize = 10_000;
+    let n: usize = 100_000;
     let partitions: Vec<usize> = vec![58*n/1000, 145*n/1000, 212*n/1000, 364*n/1000, 497*n/1000, 623*n/1000, 759*n/1000, 866*n/1000, n];
     let period = "1";
     let start_time = Instant::now();
@@ -24,7 +24,16 @@ fn  main() {
         })
         .collect();
     println!("{:?}", repeats.iter().sum::<i32>());
-    model_error(&network, period,partitions);
+    let error1_model = model_error(&network, period, &partitions);
+    let network = NetworkStructure::new_sbm(n, &partitions, period);
+    let error1_sbm = model_error(&network, period, &partitions);
+    let period = "2";
+    let (network, _) = NetworkStructure::new_multinomial(n, &partitions, period);
+    let error2_model = model_error(&network, period, &partitions);
+    let network= NetworkStructure::new_sbm(n, &partitions, period);
+    let error2_sbm = model_error(&network, period, &partitions);
+    println!("Error stats \nModel period 1: {:?} \nSBM period 1: {:?} \nModel period 2: {:?} \nSBM period 2: {:?}", 
+        error1_model, error1_sbm, error2_model, error2_sbm);
 }
 
 
