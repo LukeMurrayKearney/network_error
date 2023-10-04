@@ -123,7 +123,7 @@ impl NetworkStructure {
             }
             start_i = part_i_end;
         }
-        println!("connected: {}, unconnected: {}", degrees.iter().sum::<usize>(), total_unconnected_stubs);
+        // println!("connected: {}, unconnected: {}", degrees.iter().sum::<usize>(), total_unconnected_stubs);
         // println!("{:?}", unconnected_stubs_breakdown);
         // attempt to connect remaining with neighbours of target
         let (tmp_edges, source, target1, target2): (Vec<(usize, usize)>, Vec<(usize, usize)>, Vec<(usize, usize)>, Vec<(usize, usize)>);
@@ -174,7 +174,7 @@ impl NetworkStructure {
                 .sum::<usize>()
             })
             .sum::<usize>();
-        println!("connected: {}, unconnected: {}", connected, total_unconnected_stubs);
+        // println!("connected: {}, unconnected: {}", connected, total_unconnected_stubs);
         // define age brackets
         let connected = 0;
         let mut last_idx = 0;
