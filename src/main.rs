@@ -6,9 +6,17 @@ use std::{time::Instant, io::repeat};
 
 fn  main() {
 
-    // let n: usize = 100_000;
-    // let partitions: Vec<usize> = vec![58*n/1000, 145*n/1000, 212*n/1000, 364*n/1000, 497*n/1000, 623*n/1000, 759*n/1000, 866*n/1000, n];
-    // let period = "1";
+    let n: usize = 100_000;
+    let partitions: Vec<usize> = vec![58*n/1000, 145*n/1000, 212*n/1000, 364*n/1000, 497*n/1000, 623*n/1000, 759*n/1000, 866*n/1000, n];
+    let period = "1";
+    let (network, _) = NetworkStructure::new_multinomial(n, &partitions, period);
+    println!("model:");
+    model_error3_prob(&network, period, &partitions, 5_000, 10, 5);
+    let network = NetworkStructure::new_sbm(n, &partitions, period);
+    println!("sbm:");
+    model_error3_prob(&network, period, &partitions, 5_000, 10, 5);
+
+    
     // let start_time = Instant::now();
     // let (network, _) = NetworkStructure::new_multinomial(n, &partitions, period);
     // let elapsed_time = start_time.elapsed();
@@ -26,8 +34,8 @@ fn  main() {
     //     .collect();
     // println!("{:?}", repeats.iter().sum::<i32>());
     
-    let ns: Vec<usize> = (1..=150).map(|x| x*100).collect();
-    test_error_of_stubbing(ns);
+    // let ns: Vec<usize> = (20..=100).map(|x| x*1_000).collect();
+    // test_error_of_stubbing(ns);
 
 }
 
